@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <script>
+      var words = ["letter", "little", "houses", "hockey"];
+      var word = words[Math.floor(Math.random() * words.length)];
+      var answer = [];
+      var correctWord = 0;
+      var endgame = false;
+      var chance = 10;
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+      for (var i = 0; i < word.length; i++) {
+        answer[i] = ["_"];
+      }
+      var promptGuess = function () {
+        return prompt(
+          "Guess your word\n" +
+            answer.join(" ") +
+            "\n" +
+            chance +
+            " chances left."
+        );
+      };
+      var checkAnswer = function (guess) {
+        var correct = false;
+        for (var i = 0; i < word.length; i++) {
+          if (guess.length !== 1) {
+            chance -= 1;
+            return "Please Enter Single Character.";
+          } else if (guess === word[i]) {
+            answer[i] = guess;
+            correctWord += 1;
+            correct = true;
+          }
+        }
+        if (correct) {
+          return "Correct Character!";
+        } else {
+          chance -= 1;
+          return "Oops! Wrong Character! " + chance + " chances left.";
+        }
+      };
+      var endGame = function () {
+        if (answer.join("") === word) {
+          return true;
+        }
+      };
+      var drawHead = function () {
+        ctx.lineWidth = 4;
+        ctx.strokeRect(400, 400, 50, 50);
+      };
+      var drawBody = function () {
+        ctx.lineWidth = 4;
+        ctx.moveTo(425, 450);
+        ctx.lineTo(425, 500);
+      };
+      var drawStickman = function () {
+        if (correctWord >= 1) {
+          drawHead();
+        }
+        if (correctWord >= 2) {
+          drawBody();
+        }
+        ctx.stroke();
+      };
+      var startGame = confirm("Welcome To Hangman!");
+      while (endgame == false) {
+        drawStickman();
+        if (endGame()) {
+          endgame = true;
+          alert("Well done! Your word is " + word + "!");
+        } else {
+          var guess = promptGuess();
+          if (guess) {
+            alert(checkAnswer(guess));
+          } else if (guess === "") {
+          } else {
+            alert("goodbye");
+            break;
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

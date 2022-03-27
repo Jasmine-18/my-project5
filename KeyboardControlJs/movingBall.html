@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Moving Ball</title>
+  </head>
+  <body>
+    <h1>Welcome</h1>
+    <p>Press arrow key to control.</p>
+    <p>Z to Slow Down, X to Speed Up.</p>
+    <p>C to Deminish, V to Enlarge.</p>
+    <canvas id="canvas" height="500" width="500"></canvas>
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+    <script>
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+
+      var drawCircle = function (x, y, r, fillCircle) {
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2, false);
+        if (fillCircle) {
+          ctx.fill();
+        } else {
+          ctx.stroke();
+        }
+      };
+
+      var Ball = function () {
+        this.x = 250;
+        this.y = 250;
+        this.size = 10;
+        this.xSpeed = 5;
+        this.ySpeed = 0;
+      };
+
+      var keyNames = {
+        32: "space",
+        37: "left",
+        38: "up",
+        39: "right",
+        40: "down",
+        90: "slowDown",
+        88: "speedUp",
+        67: "smaller",
+        86: "bigger",
+      };
+
+      Ball.prototype.draw = function () {
+        drawCircle(this.x, this.y, this.size, true);
+      };
+
+      Ball.prototype.move = function () {
+        this.x += this.xSpeed;
+        this.y += this.ySpeed;
+
+        if (this.x < 0) {
+          this.xSpeed = -this.xSpeed;
+          this.ySpeed = 0;
+        } else if (this.x > 500) {
+          this.xSpeed = -this.xSpeed;
+          this.ySpeed = 0;
+        } else if (this.y < 0) {
+          this.xSpeed = 0;
+          this.ySpeed = -this.ySpeed;
+        } else if (this.y > 500) {
+          this.xSpeed = 0;
+          this.ySpeed = -this.ySpeed;
+        }
+      };
+      var Speed = function () {
+        this.num = Math.random() * 5;
+      };
+
+      Ball.prototype.changeBall = function (key) {
+        var speed = new Speed();
+        if (key === "space") {
+          this.xSpeed = 0;
+          this.ySpeed = 0;
+        } else if (key === "up") {
+          this.xSpeed = 0;
+          this.ySpeed = -speed.num;
+        } else if (key === "left") {
+          this.xSpeed = -speed.num;
+          this.ySpeed = 0;
+        } else if (key === "right") {
+          this.xSpeed = speed.num;
+          this.ySpeed = 0;
+        } else if (key === "down") {
+          this.xSpeed = 0;
+          this.ySpeed = speed.num;
+        } else if (key === "slowDown") {
+          if (this.xSpeed > 0) {
+            this.xSpeed -= 1;
+          } else if (this.ySpeed > 0) {
+            this.ySpeed -= 1;
+          } else if (this.xSpeed < 0) {
+            this.xSpeed += 1;
+          } else if (this.ySpeed < 0) {
+            this.ySpeed += 1;
+          }
+        } else if (key === "speedUp") {
+          if (this.xSpeed > 0) {
+            this.xSpeed += 1;
+          } else if (this.ySpeed > 0) {
+            this.ySpeed += 1;
+          } else if (this.xSpeed < 0) {
+            this.xSpeed -= 1;
+          } else if (this.ySpeed < 0) {
+            this.ySpeed -= 1;
+          }
+        } else if (key === "smaller") {
+          this.size -= 2;
+        } else if (key === "bigger") {
+          this.size += 2;
+        }
+      };
+
+      var ball = new Ball();
+
+      $("body").keydown(function (event) {
+        var key = keyNames[event.keyCode];
+        ball.changeBall(key);
+      });
+
+      setInterval(function () {
+        ctx.clearRect(0, 0, 500, 500);
+
+        ball.draw();
+        ball.move();
+
+        ctx.strokeRect(0, 0, 500, 500);
+      }, 30);
+    </script>
+  </body>
+</html>

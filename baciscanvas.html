@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <canvas id="canvas2" width="100" height="500"></canvas>
+    <canvas id="canvas3" width="200" height="200"></canvas>
+    <br /><br />
+    <canvas id="canvas4" width="100" height="100"></canvas>
+    <script>
+      var canvas = document.getElementById("canvas");
+      //   draw a 2-dimension on canvas
+      var ctx = canvas.getContext("2d");
+      //   draw 10 by 10 pixel rectangle at (0,0)
+      ctx.fillRect(0, 0, 10, 10);
+      //   draw 5 rectangle with for loop
+      for (var i = 0; i < 5; i++) {
+        ctx.fillRect(i * 20, 20 + i * 20, 20, 20);
+      }
+      //   draw a man
+      // fill style
+      ctx.fillStyle = "Red";
+      // head
+      ctx.fillRect(12.5, 200, 25, 25);
+      // neck
+      ctx.fillRect(22.5, 225, 5, 15);
+      // hand
+      ctx.fillRect(0, 240, 50, 5);
+      // body
+      ctx.fillRect(10, 240, 30, 40);
+      // left leg
+      ctx.fillRect(10, 240, 5, 65);
+      // left leg
+      ctx.fillRect(35, 240, 5, 65);
+
+      //   rectangle outline
+      ctx.strokeStyle = "DeepPink";
+      ctx.lineWidth = 4;
+      ctx.strokeRect(0, 400, 100, 20);
+
+      //   path
+      ctx.beginPath();
+      ctx.moveTo(10, 450);
+      ctx.lineTo(30, 480);
+      ctx.moveTo(30, 450);
+      ctx.lineTo(10, 480);
+      ctx.stroke();
+
+      //  stickman
+      var canvas2 = document.getElementById("canvas2");
+      var ctx2 = canvas2.getContext("2d");
+      ctx2.strokeStyle = "green";
+      ctx2.lineWidth = 4;
+      ctx2.strokeRect(25, 10, 50, 50);
+      ctx2.beginPath();
+      ctx2.moveTo(50, 60);
+      ctx2.lineTo(50, 130);
+      ctx2.lineTo(68, 180);
+      ctx2.moveTo(50, 130);
+      ctx2.lineTo(32, 180);
+      ctx2.moveTo(50, 90);
+      ctx2.lineTo(80, 70);
+      ctx2.moveTo(50, 90);
+      ctx2.lineTo(20, 70);
+      ctx2.stroke();
+
+      //  house
+      var canvas3 = document.getElementById("canvas3");
+      var ctx3 = canvas3.getContext("2d");
+      ctx3.strokeStyle = "green";
+      ctx3.lineWidth = 4;
+      ctx3.beginPath();
+      ctx3.moveTo(130, 30);
+      ctx3.lineTo(160, 60);
+      ctx3.lineTo(160, 100);
+      ctx3.lineTo(100, 100);
+      ctx3.lineTo(100, 60);
+      ctx3.moveTo(130, 30);
+      ctx3.fillStyle = "SkyBlue";
+      ctx3.fill();
+
+      //   snowman
+      var canvas4 = document.getElementById("canvas4");
+      var ctx4 = canvas4.getContext("2d");
+      var drawCircle = function (ctx, x, y, r) {
+        ctx.arc(x, y, r, 0, Math.PI * 2, false);
+      };
+      ctx4.beginPath();
+      ctx4.lineWidth = 4;
+      drawCircle(ctx4, 50, 20, 20);
+      ctx4.stroke();
+      ctx4.beginPath();
+      drawCircle(ctx4, 50, 65, 25);
+      ctx4.stroke();
+      ctx4.beginPath();
+      ctx4.fillStyle = "Orange";
+      drawCircle(ctx4, 50, 20, 3);
+      ctx4.fill();
+      ctx4.beginPath();
+      ctx4.fillStyle = "Orange";
+      drawCircle(ctx4, 50, 20, 3);
+      ctx4.fill();
+      ctx4.beginPath();
+      ctx4.fillStyle = "Black";
+      drawCircle(ctx4, 60, 15, 3);
+      ctx4.fill();
+      ctx4.beginPath();
+      ctx4.fillStyle = "Black";
+      drawCircle(ctx4, 40, 15, 3);
+      ctx4.fill();
+      ctx4.beginPath();
+      ctx4.fillStyle = "Black";
+      drawCircle(ctx4, 50, 52.5, 3);
+      ctx4.fill();
+      ctx4.beginPath();
+      ctx4.fillStyle = "Black";
+      drawCircle(ctx4, 50, 65, 3);
+      ctx4.fill();
+      ctx4.beginPath();
+      ctx4.fillStyle = "Black";
+      drawCircle(ctx4, 50, 77.5, 3);
+      ctx4.fill();
+    </script>
+  </body>
+</html>

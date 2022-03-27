@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Draw Snowman Canvas</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <script>
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+      var drawCircle = function (ctx, x, y, r) {
+        ctx.arc(x, y, r, 0, Math.PI * 2, false);
+      };
+      var drawSnowman = function (x, y) {
+        ctx.beginPath();
+        ctx.lineWidth = 4;
+        drawCircle(ctx, 50 + x, 20 + y, 20);
+        ctx.stroke();
+        ctx.beginPath();
+        drawCircle(ctx, 50 + x, 65 + y, 25);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.fillStyle = "Orange";
+        drawCircle(ctx, 50 + x, 20 + y, 3);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.fillStyle = "Orange";
+        drawCircle(ctx, 50 + x, 20 + y, 3);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.fillStyle = "Black";
+        drawCircle(ctx, 60 + x, 15 + y, 3);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.fillStyle = "Black";
+        drawCircle(ctx, 40 + x, 15 + y, 3);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.fillStyle = "Black";
+        drawCircle(ctx, 50 + x, 52.5 + y, 3);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.fillStyle = "Black";
+        drawCircle(ctx, 50 + x, 65 + y, 3);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.fillStyle = "Black";
+        drawCircle(ctx, 50 + x, 77.5 + y, 3);
+        ctx.fill();
+      };
+      drawSnowman(50, 50);
+      drawSnowman(150, 50);
+      var points = [
+        [0, 0],
+        [0, 100],
+        [100, 100],
+        [100, 50],
+        [150, 50],
+      ];
+      var drawPoints = function (array) {
+        for (var i = 0; i < array.length; i++) {
+          var pointX = array[i][0];
+          var pointY = array[i][0];
+          drawSnowman(pointX, pointY);
+        }
+      };
+      drawPoints(points);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bouncing Ball</title>
+  </head>
+  <body>
+    <canvas id="canvas" height="500" width="500"></canvas>
+
+    <script>
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+      var colors = ["Red", "Orange", "Yellow", "Green", "Blue", "Purple"];
+
+      var drawCircle = function (x, y, r, fillCircle, color) {
+        ctx.beginPath();
+        ctx.fillStyle = color;
+        ctx.arc(x, y, r, 0, Math.PI * 2, false);
+        if (fillCircle) {
+          ctx.fill();
+        } else {
+          ctx.stroke();
+        }
+      };
+
+      var Ball = function () {
+        this.x = 250;
+        this.y = 250;
+        this.color = "Black";
+        this.xSpeed = Math.random() * 10 - 5;
+        this.ySpeed = Math.random() * 10 - 5;
+      };
+
+      Ball.prototype.draw = function () {
+        drawCircle(this.x, this.y, 10, true, this.color);
+      };
+
+      Ball.prototype.move = function () {
+        this.x += this.xSpeed;
+        this.y += this.ySpeed;
+      };
+
+      Ball.prototype.checkWallCollision = function () {
+        if (this.x - 10 < 0 || this.x + 10 > 500) {
+          this.xSpeed = -this.xSpeed;
+        }
+        if (this.y - 10 < 0 || this.y + 10 > 500) {
+          this.ySpeed = -this.ySpeed;
+        }
+      };
+
+      var ballArray = [];
+      for (var i = 0; i < 10; i++) {
+        ballArray[i] = new Ball();
+        ballArray[i].color = colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      setInterval(function () {
+        ctx.clearRect(0, 0, 500, 500);
+        for (var i = 0; i < 10; i++) {
+          ballArray[i].draw();
+          ballArray[i].move();
+          ballArray[i].checkWallCollision();
+        }
+        ctx.strokeRect(0, 0, 500, 500);
+      }, 30);
+    </script>
+  </body>
+</html>

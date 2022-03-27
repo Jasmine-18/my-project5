@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Hangman!</h1>
+    <script>
+      var words = ["hello", "teddy", "rain", "wind"];
+      var word = words[Math.floor(Math.random() * words.length)];
+      var correct = false;
+      var answer = [];
+      var endgame = false;
+      var guess;
+      for (var i = 0; i < word.length; i++) {
+        answer[i] = ["_"];
+      }
+
+      alert("Welcome to Hangman Game! Press ok to start.");
+      while (endgame === false) {
+        if (answer.join("") === word) {
+          endgame = true;
+        } else {
+          guess = prompt("Your word is " + answer.join(" "));
+        }
+        if (guess) {
+          if (guess.length !== 1) {
+            alert("Please enter a single character.");
+          } else {
+            for (var i = 0; i < word.length; i++) {
+              if (guess === word[i]) {
+                answer[i] = guess;
+                correct = true;
+              }
+            }
+            if (correct === false) {
+              alert("Sorry! Wrong character.");
+            }
+          }
+        } else {
+          break;
+        }
+      }
+      alert("Congrat! Your word is " + answer.join(""));
+    </script>
+  </body>
+</html>

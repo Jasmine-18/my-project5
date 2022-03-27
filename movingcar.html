@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Moving Car</title>
+  </head>
+  <body>
+    <h1>Moving Car</h1>
+  </body>
+  <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+  <script>
+    var Car = function (x, y) {
+      this.x = x;
+      this.y = y;
+      //   drawing in constructor
+      this.draw();
+    };
+    Car.prototype.draw = function () {
+      var carhtml =
+        '<img src="https://www.pngitem.com/pimgs/m/195-1953962_vector-vintage-classic-car-free-hd-image-clipart.png">';
+
+      this.carElement = $(carhtml);
+      this.carElement.css({
+        position: "absolute",
+        left: this.x,
+        top: this.y,
+        width: 400,
+      });
+      $("body").append(this.carElement);
+    };
+    Car.prototype.moveRight = function () {
+      if (this.x <= 600) {
+        this.x += 10;
+        this.carElement.css({
+          left: this.x,
+          top: this.y,
+        });
+      } else {
+        clearInterval(goRIght);
+      }
+    };
+    var classicCar = new Car(0, 100);
+    var goRight = setInterval(classicCar.moveRight.bind(classicCar), 1000);
+  </script>
+</html>
